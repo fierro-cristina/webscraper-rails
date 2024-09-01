@@ -5,6 +5,40 @@
   </head>
 
   <body>
-    <p><%= @scraped_data%></p>
+    <% filters = params[:filters] || [] %>
+    <%= form_tag(filter_data_path, method: :get) do %>
+      <p>
+        <%= radio_button_tag 'filters[]', 'five_or_more_words_comments_desc', filters.include?('five_or_more_words') %>
+        <%= label_tag 'filters_five_or_more_words', 'Five or more words sorted by number of comments (descending)' %>
+      </p>
+      <p>
+        <%= radio_button_tag 'filters[]', 'five_or_fewer_words_points_desc', filters.include?('five_or_fewer_words') %>
+        <%= label_tag 'filters_five_or_fewer_words', 'Five or fewer words sorted by points (descending)' %>
+      </p>
+      <p>
+        <%= submit_tag 'Apply filters' %>
+      </p>
+    <% end %>
+
+    <% if @filtered_data.present? %>
+      <h1>Filtered data</h1>
+      <% @filtered_data.each do |entry| %>
+        <div style="border-bottom: 1px solid black; margin-bottom: 16px">
+          <div>Rank: <%= entry[:rank] %></div>
+          <div>Title: <%= entry[:title] %></div>
+          <div>Points: <%= entry[:score] %></div>
+          <div>Comments: <%= entry[:comments] %></div>
+        </div>
+      <% end %>
+    <% else %>
+      <% @scraped_data.each do |entry| %>
+        <div style="border-bottom: 1px solid black; margin-bottom: 16px">
+          <div>Rank: <%= entry[:rank] %></div>
+          <div>Title: <%= entry[:title] %></div>
+          <div>Points: <%= entry[:score] %></div>
+          <div>Comments: <%= entry[:comments] %></div>
+        </div>
+      <% end %>
+    <% end %>
   </body>
 </html>

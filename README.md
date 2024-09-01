@@ -11,7 +11,7 @@ Ruby: 3.1.2
 Clone the repository locally by running
 
 ```
-git clone
+git clone https://github.com/fierro-cristina/webscraper-rails.git
 ``` 
 
 Make sure to have ruby version 3.1.2 in your machine. If you do not, see this page for instructions on how to install it: https://www.ruby-lang.org/en/documentation/installation/
